@@ -48,9 +48,9 @@ def main():
     drive_service = build('drive', 'v3', credentials=creds)
 
     # Call the Classroom API
-    students = classroom_service.courses().students().list(courseId="248897306948").execute()
+    students = classroom_service.courses().students().list(courseId="YourClassroomID").execute()
     id_number = {i['userId']: i['profile']['name']['givenName'] for i in students['students']}
-    work = classroom_service.courses().courseWork().list(courseId="248897306948").execute()
+    work = classroom_service.courses().courseWork().list(courseId="YourClassroomID").execute()
     work_name = [i['title'] for i in work['courseWork']]
     print(f"Existed Work:\n{work_name}")
     ex_sel = input("Select Work: ")
@@ -60,7 +60,7 @@ def main():
             selected_work_id = coursework['id']
             print(f"Commencing {coursework['title']}")
             selected_work_name = coursework['title']
-    submission = classroom_service.courses().courseWork().studentSubmissions().list(courseId="248897306948",
+    submission = classroom_service.courses().courseWork().studentSubmissions().list(courseId="YourClassroomID",
                                                                                     courseWorkId=selected_work_id).execute()
     for submitted in submission['studentSubmissions']:
         if submitted['assignmentSubmission'] != {}:
